@@ -123,19 +123,30 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
-
+      const oldInventors = inventors.filter(inventor =>{
+        if(inventor.year >= 1500 && inventor.year < 1600){
+          return inventor;
+        }
+      })
     console.log(oldInventors);
 
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-
+      const firstLast = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
 
         console.log(firstLast);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+      const bdays = inventors.sort((a, b) => {
+        if(a.year > b.year){
+          return 1;
+        } else {
+          return -1;
+        }
 
+      })
 
 
       console.log(bdays);
@@ -144,18 +155,44 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+      const totalYears = inventors.reduce(
+        (counter, inventor) => {
+          return counter + (inventor.passed - inventor.year)
+        }, 0
+      )
 
+        
 
-
-    console.log(totalYears);
+    console.log('years lived ', totalYears);
 
     // 5. Sort the inventors by years lived
+      const yearsLived = inventors.sort((a,b) => {
+        if((a.passed - a.year) > (b.passed - b.year)){
+          return 1;
+        } else {
+          return -1;
+        }
+        console.table(`${a.passed} - ${a.year}`);
+      })
 
 
-
-      console.log(yearsLived);
+      console.table(yearsLived);
+      
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+      // const pageSection = document.getElementsByClassName('mw-category-group');
+      // const links = pageSection.querySelectorAll('a');
+      // console.table(links);
+      // let inner = '';
+      // let deBoulevard = pageSection.map(el => {
+      //   if(el.includes(innerHTML)){
+      //     return el;
+      //   }
+        
+      //   }
+      // );
+      // console.log(deBoulevard);
+      
 
 
     // 7. sort Exercise
@@ -163,12 +200,31 @@
 
 
 
-      console.table(byLastName);
+      // console.table(byLastName);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
-    console.log(wordCount, 'count');
+ // const wordCount = data.reduce((obj, transportation) => {
+    //   if(!obj[transportation]){
+    //     obj[transportation] = 0;
+    //   } 
+    //   obj[transportation]++;
+    //   return obj;
+    // }, {})
+
+    const wordCount = data.reduce(
+      (counter, datum)=> {
+        if(!counter[datum]){
+          counter[datum] = 0;
+        } 
+        
+        counter[datum] = counter[datum] + 1;
+        return counter;
+      }, {}
+    )
+
+    console.table(wordCount);
 
   </script>
 </body>
